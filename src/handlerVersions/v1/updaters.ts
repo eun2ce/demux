@@ -69,7 +69,7 @@ async function balanceUpdate( state, payload, blockInfo, context ) {
    }
 }
 
-async function mint (state, payload, blockInfo, context) {
+async function mint(state, payload, blockInfo, context) {
    const { amount, token, game_account_name } = parseTokenString(payload.data.value)
    const exist_token = await getSymbol(state, token)
 
