@@ -1,5 +1,5 @@
 async function getAccount( state, owner, symbol ) {
-   return await state.balances.findOne({ owne: owner, token: symbol }, { field:['amount'] })
+   return await state.balances.findOne({ owner: owner, token: symbol }, { field:['amount'] })
 }
 async function getSymbol( state, symbol) {
    return await state.token_state.findOne({ token: symbol }, {field:['token_precision']})
