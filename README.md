@@ -40,3 +40,12 @@
 |game_account_name|VARCHAR(13)||NO|
 |token|VARCHAR(7)||NO|
 |token_precision|SMALLINT||NO|
+
+## Build
+
+```cmd
+$ yarn install
+$ yarn build // tsc && cp -R src/migrations dist
+$ cd dist
+$ node index.js
+```
