@@ -12,10 +12,7 @@ function findFloatToken( tokenString ) {
 
 function parseTokenString( tokenString ) {
    const [ amountString, tokens ] = tokenString.split(" ")
-   console.info("amountString",amountString,"findFloatToken",findFloatToken(amountString))
-   const amount = Math.floor(parseInt(amountString.padEnd('0',findFloatToken(amountString))))
-   console.info("amount:", amount)
-   //const amount = Math.floor(parseFloat(amountString) *  )
+   const amount = parseInt(amountString.replace(".", ""))
 
    if(tokens.indexOf("@")){
       const _token = String(tokens)
