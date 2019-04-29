@@ -2,7 +2,9 @@
   "name": "gxc-demux",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+     "build": "tsc && cp -R src/migrations dist"
+  },
   "author": "",
   "license": "MIT",
   "dependencies": {
