@@ -1,0 +1,15 @@
+{
+   "dbConfig":{
+      "host": "127.0.0.1",
+      "port": 5432,
+      "database": "your_db_name",
+      "user": "your_name",
+      "pass": "",
+      "ssl": false,
+      "poolSize": 10,
+      "schema": "your_schema"
+   },
+   "mongoConfig":{
+      "mongoEndpoint": "mongodb://127.0.0.1:27017"
+   }
+}
