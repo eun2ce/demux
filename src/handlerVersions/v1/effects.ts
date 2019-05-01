@@ -1,16 +1,11 @@
-
 function logUpdate(payload, blockInfo, context) {
-/*
-   console.info("transfer payload:",payload)
-*/
+   //   console.info("transfer payload:",payload)
 }
 
-exports.effects = [
-/*
+const effects = [
    {
       actionType: "gxc.token::transfer",
       run: logUpdate,
    },
-*/
-]
-
+];
+export { effects };

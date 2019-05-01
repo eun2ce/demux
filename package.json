@@ -3,18 +3,28 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-     "build": "tsc && cp -R src/migrations dist"
+    "build": " rm -rf dist/* && tsc && cp -R src/migrations dist",
+    "lint": "tslint -p"
   },
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "@types/express": "^4.16.1",
+  "devDependencies": {
+    "@types/bunyan": "^1.8.5",
+    "@types/express": "^4.16.0",
     "demux": "^5.0.2-480",
     "demux-eos": "^4.0.1",
     "demux-postgres": "^5.0.2-253",
     "massive": "5.7.2",
+    "mongodb": "^3.2.3",
     "pg-promise": "8.5.3",
-    "mongodb": "^3.2.3"
+    "typescript": "^3.4.5",
+    "typescript-tslint-plugin": "^0.3.1"
+  },
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "dotenv": "^7.0.0",
+    "dotenv-json": "^1.0.0",
+    "express": "4.16.4"
   },
   "resolutions": {
     "pg-promise": "8.4.6"

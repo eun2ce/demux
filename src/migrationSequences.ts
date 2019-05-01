@@ -1,9 +1,9 @@
-const { Migration } = require("demux-postgres")
+import { Migration } from "demux-postgres";
 
 const gxcAction = new Migration(
-   "gxcAction", "gxc", "./migrations/gxcontract.sql")
+   "gxcAction", "gxc", "./migrations/gxcontract.sql");
 
-module.exports = [{
+export const migrationSequences = [{
   migrations: [gxcAction],
-  sequenceName: "init"
-}]
+  sequenceName: "init",
+}];

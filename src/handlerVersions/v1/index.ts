@@ -1,10 +1,8 @@
-const { updaters } = require("./updaters")
-const { effects } = require("./effects")
+import { effects } from "./effects";
+import { updaters } from "./updaters";
 
-const handlerVersion = {
-  versionName: "v1",
-  updaters,
+export const handlerVersions = {
   effects,
-}
-
-module.exports = handlerVersion
+  updaters,
+  versionName: "v1",
+};
