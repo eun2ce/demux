@@ -5,6 +5,7 @@
     ],
     "jsRules": {},
     "rules": {
+       "only-arrow-functions": false
     },
     "rulesDirectory": []
 }
