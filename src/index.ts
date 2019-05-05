@@ -1,11 +1,12 @@
-import { BaseActionWatcher } from "demux";
+import { ExpressActionWatcher } from "demux";
 import { MongoActionReader } from "demux-eos";
 import { MassiveActionHandler } from "demux-postgres";
 import { handlerVersions } from "./handlerVersions/v1";
+import { MassiveGxcActionHandler } from "./MassiveGxcActionHandler";
 import { migrationSequences } from "./migrationSequences";
 
 import { config } from "dotenv";
-import massive = require("massive");
+import massive = require ("massive");
 import * as pino from "pino";
 
 config();
@@ -44,17 +45,16 @@ const init = async () => {
 
    try {
       await actionReader.initialize();
-      const actionHandler = new MassiveActionHandler(
+      const actionHandler = new MassiveGxcActionHandler(
          [handlerVersions],
          db,
          dbConfig.schema,
          migrationSequences,
       );
 
-      const actionWatcher = new BaseActionWatcher(actionReader, actionHandler, 500);
-
-      actionWatcher.watch();
-      logger.info(`Demux listening on ${ dbConfig.port }port..`);
+      const actionWatcher = new ExpressActionWatcher( actionReader, actionHandler, parseInt(process.env.DEMUX_POLLINTERVAL, 10), parseInt(process.env.DEMUX_ENDPOINT, 10));
+      await actionWatcher.listen();
+      logger.info(`Demux listening on port ${process.env.DEMUX_ENDPOINT}...`);
    } catch (e) {
       logger.info(e);
    }
