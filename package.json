@@ -29,6 +29,6 @@
     "pino-pretty": "^3.0.0"
   },
   "resolutions": {
-    "pg-promise": "8.4.6"
+    "pg-promise": "8.5.3"
   }
 }
