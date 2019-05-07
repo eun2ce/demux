@@ -21,6 +21,11 @@ async function getSymbol( state, symbol) {
    );
 }
 
+function pad(n, width) {
+  n = n + "";
+  return n.length >= width ? n : new Array(width - n.length + 1).join("0") + n;
+}
+
 function findFloatToken( tokenString ) {
    const [ amountString, tokens ] = tokenString.split(" ");
    const words = amountString.split(".");
@@ -136,6 +141,7 @@ async function mint(state, payload, blockInfo, context) {
 
 async function transfer(state, payload, blockInfo, context) {
    const { amount, token, gameAccountName } = parseTokenString(payload.data.value);
+   const actId = payload.transactionId + pad(payload.actionIndex, 2);
    const res = await state.transfers.insert(
       {
          amount,
@@ -145,7 +151,7 @@ async function transfer(state, payload, blockInfo, context) {
          receiver: payload.data.to,
          sender: payload.data.from,
          token,
-         trx_id: payload.transactionId,
+         act_id: actId,
       },
    );
 }

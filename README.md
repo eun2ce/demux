@@ -6,13 +6,15 @@
 
 |Column|Type|Default|Nullable|
 |------|----|-------|--------|
-|trx_id|VARCHAR(64)||NO|
+|act_id|VARCHAR(66)||NO|
 |sender|VARCHAR(12)||NO|
 |receiver|VARCHAR(12)||NO|
 |amount|NUMERIC(23)||NO|
 |token|VARCHAR(7)||NO|
 |game_account_name|VARCHAR(13)||NO|
 |block_time|TIMESTAMP||NO|
+
+**act_id:** trx_id + action index
 
 ### gxc.balances
 
