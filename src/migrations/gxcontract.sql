@@ -4,6 +4,14 @@
 --DROP SCHEMA IF EXISTS cyanaudit CASCADE;
 --DROP SCHEMA IF EXISTS gxc CASCADE;
 
+DO $$
+   BEGIN
+      ALTER TABLE gxc._index_state ADD COLUMN dirty boolean not null default false;
+      EXCEPTION
+      WHEN duplicate_column THEN RAISE NOTICE 'column dirty already exists in gxc._idnex_state.';
+   END;
+$$;
+
 CREATE TABLE IF NOT EXISTS gxc.transfers (
    act_id VARCHAR(66) PRIMARY KEY, -- TRANSACTION ID + ACTION INDEX
    sender VARCHAR(12) NOT NULL,
