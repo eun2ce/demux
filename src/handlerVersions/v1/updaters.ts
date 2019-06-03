@@ -26,22 +26,23 @@ function pad(n, width) {
   return n.length >= width ? n : new Array(width - n.length + 1).join("0") + n;
 }
 
+/*
 function findFloatToken( tokenString ) {
    const [ amountString, tokens ] = tokenString.split(" ");
    const words = amountString.split(".");
    return words.length > 1 ? words[1].length : 0;
 }
+*/
 
 function parseTokenString( tokenString ) {
-   const [ amountString, tokens ] = tokenString.split(" ");
-   const amount = parseInt(amountString.replace(".", ""), 10);
+   const amount = parseInt(tokenString.quantity.amount, 10);
+   const token = tokenString.sym.code;
 
-   if (tokens.indexOf("@")) {
-      const parsedTokenString = String(tokens);
-      const [ token, gameAccountName ] = parsedTokenString.split("@");
+   if( tokenString.contract ) {
+      const gameAccountName = tokenString.contract;
       return { amount, token, gameAccountName };
    }
-   return { amount, tokens };
+   return { amount, token };
 }
 
 async function balanceUpdate( state, payload, blockInfo, context ) {
@@ -113,12 +114,14 @@ async function balanceUpdate( state, payload, blockInfo, context ) {
    }
 }
 
+// check
 async function mint(state, payload, blockInfo, context) {
    const { amount, token, gameAccountName } = parseTokenString( payload.data.value );
    const existToken = await getSymbol(state, token);
 
    if (existToken === null) {
-      const tokenPrecision = findFloatToken( payload.data.value );
+      const tokenPrecision = payload.data.value.quantity.sym.decimals;
+      //const tokenPrecision = findFloatToken( payload.data.value );
       const stateres = await state.token_state.insert(
          {
          game_account_name: gameAccountName,
