@@ -12,8 +12,7 @@ export class GxcMongoActionReader extends MongoActionReader {
    protected mongoStartAtBlock: number
    protected onlyIrreversible: boolean
 
-   constructor(options: MongoActionReaderOptions = {}
-   ) {
+   constructor(options: MongoActionReaderOptions = {}) {
       super(options)
    }
 }

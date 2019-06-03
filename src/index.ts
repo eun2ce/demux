@@ -20,6 +20,35 @@ const dbConfig: massive.ConnectionInfo = {
    user: process.env.POSTGRES_UNAME || "postgres",
 };
 
+const db = massive(dbConfig);
+const startBlock = (db.gxc)
+   ? db.gxc._index_state.findOne({}, {field: ["block_number"]})
+   .then(function(result) {
+      return(result === null) ? 1 : result.block_number ++;
+   })
+   : 1;
+
+const actionReader: any = new GxcMongoActionReader(
+   {
+      dbName: process.env.MONGO_DB || "GXC",
+      mongoEndpoint: process.env.MONGO_ENDPOINT || "mongodb://127.0.0.1:27017",
+      onlyIrreversible: false,
+      startAtBlock: process.env.MONGO_STARTBLOCK || startBlock,
+   },
+);
+
+const actionHandler = new MassiveGxcActionHandler(
+   [handlerVersions],
+   db,
+   dbConfig.schema,
+   migrationSequences,
+);
+
+const actionWatcher = new GxcActionWatcher(actionReader, actionHandler);
+
+actionReader.initialize().then(() => actionWatcher.run(10000));
+
+/*
 const init = async () => {
    const db = await massive(dbConfig);
    const startBlock = (db.gxc)
@@ -56,6 +85,7 @@ const init = async () => {
    }
 };
 
+
 const exit = (e: any) => {
    logger.error("An error has occured. \nerror is: %s \nstack trace is: %s \n", e, e.stack);
    logger.error("Process will restart now.");
@@ -65,3 +95,4 @@ const exit = (e: any) => {
 process.on("unhandledRejection", exit);
 process.on("uncaughtException", exit);
 setTimeout(init, 2500);
+*/
