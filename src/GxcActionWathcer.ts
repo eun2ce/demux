@@ -19,13 +19,4 @@ export class GxcActionWatcher extends ExpressActionWatcher {
    public async getBlockInfo() {
       this.log.info("current block number: ", this.actionReader["currentBlockData"].blockInfo["blockNumber"]);
    }
-
-   public async run(timeInterval: number) {
-      if ( this.info.indexingStatus === IndexingStatus.Initial
-         ||this.info.indexingStatus === IndexingStatus.Stopped ) {
-         this.log.info("DEMUX STARTING INDEXING.");
-         this.watch();
-      }
-      setTimeout(async () => await this.run(timeInterval), timeInterval);
-   }
 }

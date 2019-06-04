@@ -1,10 +1,10 @@
 {
   "name": "gxc-demux",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "build": " rm -rf dist/* && tsc && cp -R src/migrations dist",
-    "lint": "tslint -p"
+    "build": " rm -rf dist/* && tsc && cp -R src/migrations dist && node dist/index.js",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "author": "",
   "license": "MIT",
