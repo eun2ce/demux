@@ -38,7 +38,7 @@ function parseTokenString( tokenString ) {
    const amount = parseInt(tokenString.quantity.amount, 10);
    const token = tokenString.sym.code;
 
-   if( tokenString.contract ) {
+   if ( tokenString.contract ) {
       const gameAccountName = tokenString.contract;
       return { amount, token, gameAccountName };
    }
@@ -121,7 +121,7 @@ async function mint(state, payload, blockInfo, context) {
 
    if (existToken === null) {
       const tokenPrecision = payload.data.value.quantity.sym.decimals;
-      //const tokenPrecision = findFloatToken( payload.data.value );
+      // const tokenPrecision = findFloatToken( payload.data.value );
       const stateres = await state.token_state.insert(
          {
          game_account_name: gameAccountName,
@@ -154,7 +154,7 @@ async function transfer(state, payload, blockInfo, context) {
          receiver: payload.data.to,
          sender: payload.data.from,
          token,
-         act_id: actId,
+         act_id: actId, // ignore tslint sorted alphabetically
       },
    );
 }

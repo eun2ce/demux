@@ -49,11 +49,11 @@ const actionWatcher = new GxcActionWatcher(actionReader, actionHandler);
 
 async function main(timeInterval: number) {
    if ( actionWatcher.info.indexingStatus === IndexingStatus.Initial
-      ||actionWatcher.info.indexingStatus === IndexingStatus.Stopped ) {
+      || actionWatcher.info.indexingStatus === IndexingStatus.Stopped ) {
       logger.info("DEMUX STARTING INDEXING.");
       actionWatcher.watch();
    }
    setTimeout(async () => await main(timeInterval), timeInterval);
-};
+}
 
 actionReader.initialize().then(() => main(10000));
