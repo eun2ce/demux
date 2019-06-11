@@ -37,7 +37,7 @@ async function init() {
             dbName: process.env.MONGO_DB || "GXC",
             mongoEndpoint: process.env.MONGO_ENDPOINT || "mongodb://127.0.0.1:27017",
             onlyIrreversible: false,
-            startAtBlock:  startBlock,
+            startAtBlock:  process.env.MONGO_STARTBLOCK || startBlock,
          },
       );
 
@@ -57,7 +57,7 @@ async function init() {
 }
 
 async function main(actionWatcher: any, timeInterval: number) {
-   logger.info("DEMUX CHECK ALIVE");
+   //logger.info(new Date().toISOString(), " : check demux alive");
    if ( actionWatcher.info.indexingStatus === IndexingStatus.Initial
       || actionWatcher.info.indexingStatus === IndexingStatus.Stopped ) {
       logger.info("DEMUX STARTING INDEXING.");
