@@ -1,4 +1,4 @@
-async function getAccount( state, owner, symbol ) {
+async function getAccount( state: any, owner: string, symbol: string ) {
    return await state.balances.findOne(
       {
          owner,
@@ -26,17 +26,9 @@ function pad(n, width) {
   return n.length >= width ? n : new Array(width - n.length + 1).join("0") + n;
 }
 
-/*
-function findFloatToken( tokenString ) {
-   const [ amountString, tokens ] = tokenString.split(" ");
-   const words = amountString.split(".");
-   return words.length > 1 ? words[1].length : 0;
-}
-*/
-
 function parseTokenString( tokenString ) {
    const amount = parseInt(tokenString.quantity.amount, 10);
-   const token = tokenString.sym.code;
+   const token = tokenString.quantity.sym.code;
 
    if ( tokenString.contract ) {
       const gameAccountName = tokenString.contract;
@@ -47,7 +39,6 @@ function parseTokenString( tokenString ) {
 
 async function balanceUpdate( state, payload, blockInfo, context ) {
    const { amount, token, gameAccountName } = parseTokenString(payload.data.value);
-
    const sender = payload.data.from;
    const receiver = payload.data.to;
    const tokenString = String(token);
@@ -114,14 +105,12 @@ async function balanceUpdate( state, payload, blockInfo, context ) {
    }
 }
 
-// check
 async function mint(state, payload, blockInfo, context) {
    const { amount, token, gameAccountName } = parseTokenString( payload.data.value );
    const existToken = await getSymbol(state, token);
 
    if (existToken === null) {
       const tokenPrecision = payload.data.value.quantity.sym.decimals;
-      // const tokenPrecision = findFloatToken( payload.data.value );
       const stateres = await state.token_state.insert(
          {
          game_account_name: gameAccountName,
